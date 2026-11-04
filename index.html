@@ -1,165 +1,36 @@
 <!DOCTYPE html>
-<html lang="fr">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>SOUKLY | Your Market, Your Style</title>
-<meta name="description" content="SOUKLY - Boutique en ligne au Maroc">
+<html lang="fr"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><meta name="theme-color" content="#171512"><title>SOUKLY | Boutique en ligne</title>
 <style>
-*{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;color:#171717;background:#fff}
-header{background:#111;color:white;padding:20px 8%;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap}
-.logo{font-size:30px;font-weight:900;letter-spacing:-2px}
-.logo span{color:#c49a51}
-nav a{color:white;text-decoration:none;margin:0 12px;font-size:14px}
-.cart{background:#c49a51;border:0;padding:12px 18px;font-weight:bold;cursor:pointer}
-.hero{background:#f5f1e9;padding:90px 10%;display:flex;align-items:center;justify-content:space-between;gap:35px;flex-wrap:wrap}
-.hero-text{max-width:520px}
-.eyebrow{color:#b18a47;letter-spacing:3px;font-size:12px;font-weight:bold}
-h1{font-family:Georgia,serif;font-size:55px;margin:22px 0;line-height:1.1}
-h1 span{color:#b18a47}
-.hero p{color:#777;line-height:1.8;margin-bottom:25px}
-.btn{display:inline-block;background:#c49a51;color:#111;padding:15px 23px;text-decoration:none;font-weight:bold;border:0;cursor:pointer}
-.hero-art{width:290px;height:290px;background:#171717;color:#c49a51;border:12px solid #e6d9c1;display:grid;place-items:center;font: bold 100px Georgia;transform:rotate(5deg)}
-.features{display:flex;justify-content:space-around;padding:25px 5%;border-bottom:1px solid #eee;flex-wrap:wrap;gap:15px}
-.features div{font-size:13px;font-weight:bold}
-section.products{padding:75px 8%}
-.section-title{text-align:center;font: bold 38px Georgia;margin-bottom:12px}
-.subtitle{text-align:center;color:#888;font-size:13px;margin-bottom:35px}
-.filters{text-align:center;margin-bottom:30px}
-.filters button{padding:10px 18px;background:white;border:1px solid #ddd;margin:5px;cursor:pointer}
-.filters button.active{background:#111;color:white}
-.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px}
-.product{border:1px solid #eee;padding-bottom:18px}
-.product img{width:100%;height:220px;object-fit:cover;background:#eee}
-.product h3{font: bold 18px Georgia;margin:15px}
-.product p{margin:0 15px 12px;color:#b18a47;font-weight:bold}
-.product button{margin-left:15px;padding:10px 15px;background:#111;color:white;border:0;cursor:pointer}
-.about{background:#171717;color:white;padding:75px 10%;text-align:center}
-.about h2{font: bold 38px Georgia;margin-bottom:20px}
-.about p{max-width:650px;margin:auto;color:#bbb;line-height:1.8}
-.contact{text-align:center;padding:70px 20px;background:#f5f1e9}
-.contact h2{font: bold 35px Georgia;margin-bottom:15px}
-footer{background:#111;color:#aaa;padding:25px;text-align:center;font-size:12px}
-#cartBox{position:fixed;right:15px;top:80px;background:white;padding:20px;width:300px;max-width:90%;box-shadow:0 5px 30px #0003;display:none;z-index:5}
-#cartBox h3{margin-bottom:15px}
-#cartBox p{margin:10px 0;font-size:13px}
-#cartBox button{padding:10px;background:#c49a51;border:0;cursor:pointer}
-@media(max-width:800px){.grid{grid-template-columns:repeat(2,1fr)}h1{font-size:42px}.hero{padding:55px 7%}}
-@media(max-width:480px){header{gap:15px}nav{width:100%;display:flex;justify-content:space-between}nav a{margin:0;font-size:12px}.grid{grid-template-columns:1fr 1fr}.product img{height:150px}.hero-art{width:220px;height:220px;font-size:75px}.section-title{font-size:30px}}
-</style>
-</head>
-<body>
-
-<header>
- <div class="logo">SOUK<span>LY</span></div>
- <nav>
-  <a href="#home">Accueil</a>
-  <a href="#products">Boutique</a>
-  <a href="#about">À propos</a>
-  <a href="#contact">Contact</a>
- </nav>
- <button class="cart" onclick="toggleCart()">Panier (<span id="count">0</span>)</button>
-</header>
-
-<div id="cartBox">
- <h3>Votre panier</h3>
- <div id="cartItems">Votre panier est vide.</div>
- <p>Total: <b id="total">0 DH</b></p>
- <button onclick="order()">Commander sur WhatsApp</button>
- <button onclick="toggleCart()">Fermer</button>
-</div>
-
-<main>
-<section class="hero" id="home">
- <div class="hero-text">
-  <div class="eyebrow">WELCOME TO SOUKLY</div>
-  <h1>Le shopping malin,<br><span>à votre façon.</span></h1>
-  <p>Découvrez des produits tendance, pratiques et accessibles. SOUKLY vous accompagne pour un shopping simple partout au Maroc.</p>
-  <a class="btn" href="#products">Découvrir la boutique →</a>
- </div>
- <div class="hero-art">S.</div>
-</section>
-
-<div class="features">
- <div>✧ Paiement à la livraison</div>
- <div>◇ Livraison au Maroc</div>
- <div>♡ Service client</div>
- <div>✦ Bons prix</div>
-</div>
-
-<section class="products" id="products">
- <h2 class="section-title">Nos produits</h2>
- <p class="subtitle">Découvrez notre sélection du moment</p>
- <div class="filters">
-  <button class="active" onclick="filter('all',this)">Tout</button>
-  <button onclick="filter('accessoires',this)">Accessoires</button>
-  <button onclick="filter('maison',this)">Maison</button>
-  <button onclick="filter('tech',this)">Tech</button>
- </div>
- <div class="grid" id="grid"></div>
-</section>
-
-<section class="about" id="about">
- <h2>L'esprit SOUKLY</h2>
- <p>Notre mission est de vous proposer des produits utiles et tendance à des prix accessibles, avec une expérience d'achat simple et un service fiable au Maroc.</p>
-</section>
-
-<section class="contact" id="contact">
- <h2>Une question ?</h2>
- <p>Contactez-nous directement sur WhatsApp.</p><br>
- <a class="btn" href="https://wa.me/212620015579" target="_blank">Nous contacter ↗</a>
-</section>
-</main>
-
-<footer>© 2026 SOUKLY — Your Market. Your Style.</footer>
-
+:root{--ink:#171512;--gold:#c9a45c;--cream:#f8f6f1;--line:#e9e5dc;--muted:#77736c}*{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;background:var(--cream);color:var(--ink);font-family:Arial,system-ui,sans-serif}button,input,textarea{font:inherit}button,a{cursor:pointer}a{color:inherit;text-decoration:none}.wrap{width:min(1180px,92%);margin:auto}.announcement{background:#171512;color:#ead6a7;text-align:center;padding:9px;font-size:11px;letter-spacing:.08em}header{position:sticky;top:0;z-index:10;background:#f8f6f1ed;backdrop-filter:blur(14px);border-bottom:1px solid var(--line)}.top{height:75px;display:flex;align-items:center;gap:22px}.brand{font:700 28px Georgia;letter-spacing:.14em;white-space:nowrap}.brand span,.footbrand span{color:var(--gold)}.search{display:flex;flex:1;height:43px;background:white;border:1px solid var(--line);border-radius:30px;overflow:hidden}.search input{flex:1;min-width:0;border:0;outline:0;padding:0 16px}.search button{background:var(--ink);color:white;border:0;padding:0 20px}.action{border:1px solid var(--line);background:white;border-radius:30px;padding:10px 13px}.count{background:var(--gold);border-radius:50%;padding:3px 7px;font-size:11px;font-weight:bold}.nav{display:flex;gap:24px;overflow:auto;padding:0 0 13px;font-size:13px;color:#655e52;white-space:nowrap}.nav a:hover{color:#a27d3b}.hero{margin:25px auto 0;min-height:390px;border-radius:24px;overflow:hidden;display:flex;align-items:center;color:white;background:linear-gradient(90deg,#100f0de8,#100f0d40),url('https://images.unsplash.com/photo-1441986300917-64674bd600d8?auto=format&fit=crop&w=1800&q=85') center/cover}.heroText{padding:50px;max-width:620px;animation:rise .7s}.eyebrow{color:#ead6a7;letter-spacing:.2em;font-size:11px}.hero h1{font:500 clamp(40px,6vw,65px)/1.05 Georgia;margin:16px 0}.hero p{line-height:1.7;color:#e4dfd5;max-width:440px}.btn{display:inline-flex;justify-content:center;align-items:center;border:0;border-radius:30px;background:var(--gold);color:#171512;font-weight:bold;padding:14px 22px;transition:.25s}.btn:hover{transform:translateY(-3px);box-shadow:0 9px 24px #c9a45c55}.btn.dark{background:#171512;color:white}.hero .btn{margin-top:12px}.trust{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:22px 0 50px}.trust div{background:white;border:1px solid var(--line);border-radius:14px;padding:16px;display:flex;gap:12px;align-items:center}.trust b{display:block;font-size:13px}.trust small{font-size:11px;color:var(--muted)}.trust i{font-style:normal;font-size:22px}.heading{margin-bottom:20px}.heading h2{font:500 34px Georgia;margin:0}.heading p{font-size:13px;color:var(--muted)}.filters{display:flex;gap:8px;overflow:auto;margin-bottom:20px}.filter{white-space:nowrap;border:1px solid var(--line);background:white;border-radius:30px;padding:9px 15px;font-size:12px}.filter.active,.filter:hover{background:var(--ink);color:white}.products{display:grid;grid-template-columns:repeat(4,1fr);gap:17px}.product{background:white;border:1px solid var(--line);border-radius:16px;overflow:hidden;transition:.3s;animation:rise .5s}.product:hover{transform:translateY(-6px);box-shadow:0 15px 40px #211a1018}.photo{height:220px;position:relative;background:#eee}.photo img{width:100%;height:100%;object-fit:cover;transition:.5s}.product:hover img{transform:scale(1.05)}.tag{position:absolute;top:12px;left:12px;background:#171512;color:white;border-radius:30px;padding:6px 10px;font-size:10px}.info{padding:14px}.cat{color:#a27d3b;text-transform:uppercase;letter-spacing:.12em;font-size:10px}.info h3{font-size:14px;min-height:32px;margin:8px 0}.price{font-size:17px;font-weight:bold}.old{font-size:12px;color:#aaa;text-decoration:line-through;margin-left:8px}.info small{display:block;color:var(--muted);font-size:11px;margin-top:7px}.add{width:100%;margin-top:13px;border:1px solid var(--ink);border-radius:30px;background:white;padding:10px;font-weight:bold;font-size:12px}.add:hover{background:var(--ink);color:white}.promo{margin:60px 0;background:#e9e0d0;border-radius:20px;padding:34px;display:flex;justify-content:space-between;align-items:center}.promo h2{font:500 29px Georgia;margin:0 0 8px}.promo p{font-size:13px;color:#665e51}.promo strong{font:italic 40px Georgia;color:#9c783d}footer{background:#171512;color:#eee9df;padding:40px 0 20px;margin-top:55px}.footgrid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:25px}.footbrand{font:700 27px Georgia;letter-spacing:.12em}footer p,footer a{color:#bcb5a9;font-size:12px;line-height:1.8}.copyright{border-top:1px solid #39352e;margin-top:25px;padding-top:17px;color:#8f887d;font-size:11px}.overlay{position:fixed;inset:0;background:#0008;z-index:30;opacity:0;pointer-events:none;transition:.25s}.overlay.show{opacity:1;pointer-events:auto}.cart{position:fixed;z-index:40;right:0;top:0;width:min(430px,100%);height:100dvh;background:var(--cream);transform:translateX(105%);transition:.35s;display:flex;flex-direction:column;box-shadow:0 0 50px #0002}.cart.open{transform:translateX(0)}.carthead{padding:20px;border-bottom:1px solid var(--line);display:flex;justify-content:space-between}.carthead h2{font:26px Georgia;margin:0}.close{border:0;border-radius:50%;width:35px;height:35px;background:white;font-size:20px}.items{padding:15px 20px;overflow:auto;flex:1}.empty{text-align:center;color:var(--muted);padding:50px 10px}.item{display:grid;grid-template-columns:65px 1fr auto;gap:12px;padding:12px 0;border-bottom:1px solid var(--line);align-items:center}.item img{width:65px;height:65px;object-fit:cover;border-radius:9px}.item b{font-size:12px}.item small{display:block;color:var(--muted);margin-top:5px}.qty{display:flex;gap:8px;align-items:center;margin-top:7px}.qty button{border:1px solid var(--line);background:white;border-radius:50%;width:24px;height:24px}.remove{border:0;background:none;color:#a44;font-size:11px}.cartbottom{background:white;padding:19px;border-top:1px solid var(--line)}.total{display:flex;justify-content:space-between;font-weight:bold;margin-bottom:14px}.cartbottom .btn{width:100%}.note{font-size:10px;color:var(--muted);line-height:1.5;margin-top:9px}.modal{position:fixed;inset:0;z-index:50;display:none;place-items:center;padding:15px;background:#0008}.modal.show{display:grid}.modalbox{width:min(480px,100%);max-height:90dvh;overflow:auto;background:var(--cream);border-radius:18px;padding:24px;animation:rise .3s}.modalbox h2{font:27px Georgia;margin:0}.modalbox p{font-size:12px;color:var(--muted)}.form{display:grid;gap:12px;margin-top:16px}.form label{font-size:11px;font-weight:bold}.form input,.form textarea{display:block;width:100%;margin-top:6px;padding:12px;border:1px solid var(--line);border-radius:9px;background:white;outline:0}.form textarea{min-height:75px}.form .btn{width:100%}.toast{position:fixed;z-index:60;bottom:20px;left:50%;transform:translate(-50%,20px);opacity:0;background:#171512;color:white;border-radius:30px;padding:12px 18px;font-size:12px;transition:.25s;pointer-events:none}.toast.show{opacity:1;transform:translate(-50%,0)}@keyframes rise{from{opacity:0;transform:translateY(17px)}to{opacity:1;transform:translateY(0)}}@media(max-width:900px){.products{grid-template-columns:repeat(3,1fr)}.trust{grid-template-columns:repeat(2,1fr)}}@media(max-width:650px){.top{height:65px;gap:8px}.brand{font-size:21px}.search{height:38px}.search input{padding:0 9px;font-size:12px}.search button{padding:0 12px}.action{padding:9px;font-size:11px}.nav{gap:18px}.hero{min-height:360px;background-position:58%}.heroText{padding:25px}.hero h1{font-size:43px}.hero p{font-size:13px}.trust{gap:8px;margin-bottom:38px}.trust div{padding:11px 9px}.trust b{font-size:11px}.trust small{font-size:10px}.trust i{font-size:18px}.heading h2{font-size:29px}.products{grid-template-columns:repeat(2,minmax(0,1fr));gap:10px}.photo{height:160px}.info{padding:10px}.info h3{font-size:12px}.price{font-size:15px}.add{font-size:11px;padding:9px}.promo{padding:22px;margin:42px 0}.promo h2{font-size:23px}.promo strong{font-size:28px}.footgrid{grid-template-columns:1fr 1fr}.footgrid>div:first-child{grid-column:1/-1}}@media(prefers-reduced-motion:reduce){*{scroll-behavior:auto!important;animation-duration:.01ms!important;transition-duration:.01ms!important}}
+</style></head><body>
+<div class="announcement" data-t="announcement">LIVRAISON PARTOUT AU MAROC · PAIEMENT À LA LIVRAISON</div>
+<header><div class="wrap"><div class="top"><a class="brand" href="#">SOUK<span>LY</span></a><form class="search" id="searchForm"><input id="search" placeholder="Rechercher un produit..."><button>⌕</button></form><button class="action" id="lang">FR / AR</button><button class="action" id="openCart">♧ <span data-t="cart">Panier</span> <span class="count" id="count">0</span></button></div><nav class="nav"><a href="#products" data-t="all">Tous les produits</a><a href="#products" data-category="Tech" data-t="tech">Électronique</a><a href="#products" data-category="Maison" data-t="home">Maison</a><a href="#products" data-category="Style" data-t="style">Mode & accessoires</a><a href="#products" data-category="Lifestyle" data-t="life">Lifestyle</a><a href="#footer" data-t="contact">Contact</a></nav></div></header>
+<main class="wrap"><section class="hero"><div class="heroText"><div class="eyebrow" data-t="eyebrow">LA SÉLECTION SOUKLY</div><h1 data-t="heroTitle">Le beau choix.<br>Le bon prix.</h1><p data-t="heroText">Découvrez une sélection de produits tendance, choisis avec soin pour votre quotidien.</p><a class="btn" href="#products" data-t="shop">Découvrir la collection →</a></div></section>
+<section class="trust"><div><i>🚚</i><span><b data-t="delivery">Livraison au Maroc</b><small data-t="deliverySub">Partout au royaume</small></span></div><div><i>💳</i><span><b data-t="cash">Paiement à la livraison</b><small data-t="cashSub">Simple et pratique</small></span></div><div><i>✦</i><span><b data-t="selection">Sélection soignée</b><small data-t="selectionSub">Des choix utiles et tendance</small></span></div><div><i>💬</i><span><b data-t="support">Service client</b><small data-t="supportSub">Commande via WhatsApp</small></span></div></section>
+<section id="products"><div class="heading"><h2 data-t="featured">Nos coups de cœur</h2><p data-t="featuredSub">Une sélection pour trouver votre prochain favori.</p></div><div class="filters" id="filters"></div><div class="products" id="grid"></div></section>
+<section class="promo"><div><h2 data-t="promoTitle">Le style, sans complication.</h2><p data-t="promoText">Explorez nos nouveautés et trouvez votre prochain coup de cœur.</p></div><strong>SOUKLY.</strong></section></main>
+<footer id="footer"><div class="wrap"><div class="footgrid"><div><div class="footbrand">SOUK<span>LY</span></div><p data-t="footText">Votre boutique en ligne au Maroc. Une sélection simple, élégante et accessible.</p></div><div><h4 data-t="quick">Navigation</h4><p><a href="#products" data-t="all">Tous les produits</a></p></div><div><h4 data-t="help">Besoin d'aide ?</h4><p data-t="helpText">Contactez-nous sur WhatsApp pour toute question sur votre commande.</p></div></div><div class="copyright">© <span id="year"></span> SOUKLY. <span data-t="rights">Tous droits réservés.</span></div></div></footer>
+<div class="overlay" id="overlay"></div><aside class="cart" id="cart"><div class="carthead"><h2 data-t="yourCart">Votre panier</h2><button class="close" id="closeCart">×</button></div><div class="items" id="items"></div><div class="cartbottom"><div class="total"><span data-t="subtotal">Sous-total</span><span id="total">0 DH</span></div><button class="btn dark" id="checkout" data-t="order">Commander sur WhatsApp</button><div class="note" data-t="cartNote">La livraison et le paiement seront confirmés avec notre équipe.</div></div></aside>
+<div class="modal" id="modal"><div class="modalbox"><div style="display:flex;justify-content:space-between;align-items:center"><h2 data-t="details">Vos coordonnées</h2><button class="close" id="closeModal">×</button></div><p data-t="detailsSub">Remplissez ces informations pour envoyer votre commande.</p><form class="form" id="orderForm"><label><span data-t="name">Nom complet</span><input id="customerName" required></label><label><span data-t="phone">Téléphone</span><input id="customerPhone" type="tel" required></label><label><span data-t="address">Ville et adresse de livraison</span><textarea id="customerAddress" required></textarea></label><label><span data-t="extra">Note (facultatif)</span><input id="customerNote"></label><button class="btn dark" type="submit" data-t="send">Envoyer la commande sur WhatsApp</button></form></div></div><div class="toast" id="toast"></div>
 <script>
-const products=[
-{id:1,name:"Sac minimaliste",price:129,category:"accessoires",image:"https://images.unsplash.com/photo-1548036328-c9fa89d128fa?w=600"},
-{id:2,name:"Lampe décorative",price:159,category:"maison",image:"https://images.unsplash.com/photo-1507473885765-e6ed057f782c?w=600"},
-{id:3,name:"Écouteurs sans fil",price:199,category:"tech",image:"https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?w=600"},
-{id:4,name:"Lunettes classiques",price:99,category:"accessoires",image:"https://images.unsplash.com/photo-1511499767150-a48a237f0083?w=600"}
-];
-let cart=[];
-function render(category="all"){
- const list=category==="all"?products:products.filter(p=>p.category===category);
- document.getElementById("grid").innerHTML=list.map(p=>`
- <div class="product">
- <img src="${p.image}" alt="${p.name}">
- <h3>${p.name}</h3>
- <p>${p.price} DH</p>
- <button onclick="add(${p.id})">+ Ajouter</button>
- </div>`).join("");
-}
-function add(id){
- let p=products.find(x=>x.id===id);
- let item=cart.find(x=>x.id===id);
- if(item)item.qty++;else cart.push({...p,qty:1});
- update();
-}
-function update(){
- document.getElementById("count").textContent=cart.reduce((a,b)=>a+b.qty,0);
- document.getElementById("cartItems").innerHTML=cart.length?cart.map(x=>`<p>${x.name} × ${x.qty} — ${x.price*x.qty} DH</p>`).join(""):"Votre panier est vide.";
- document.getElementById("total").textContent=cart.reduce((a,b)=>a+b.price*b.qty,0)+" DH";
-}
-function toggleCart(){
- let box=document.getElementById("cartBox");
- box.style.display=box.style.display==="block"?"none":"block";
-}
-function filter(cat,button){
- document.querySelectorAll(".filters button").forEach(b=>b.classList.remove("active"));
- button.classList.add("active");
- render(cat);
-}
-function order(){
- if(!cart.length){alert("Votre panier est vide");return;}
- let msg="Bonjour SOUKLY, je souhaite commander :\n";
- cart.forEach(x=>msg+=`${x.name} x${x.qty} = ${x.price*x.qty} DH\n`);
- msg+="Total : "+cart.reduce((a,b)=>a+b.price*b.qty,0)+" DH";
- window.open("https://wa.me/212620015579?text="+encodeURIComponent(msg),"_blank");
-}
-render();
-</script>
-</body>
-</html>
+// Pour ajouter/modifier des produits : modifiez les objets du tableau PRODUCTS.
+// Mettez le prix en DH et l'image avec un lien HTTPS.
+const WHATSAPP_NUMBER='212620015579'; // Format international, sans + ni espaces
+const PRODUCTS=[
+{id:1,cat:'Tech',name:'Écouteurs sans fil',ar:'سماعات لاسلكية',price:149,old:199,badge:'Bestseller',img:'https://images.unsplash.com/photo-1606220945770-b5b6c2c55bf1?auto=format&fit=crop&w=800&q=80'},
+{id:2,cat:'Maison',name:'Lampe design',ar:'مصباح أنيق',price:189,old:239,badge:'Nouveau',img:'https://images.unsplash.com/photo-1509644851169-2acc08aa25b5?auto=format&fit=crop&w=800&q=80'},
+{id:3,cat:'Style',name:'Sac minimaliste',ar:'حقيبة أنيقة',price:229,old:279,badge:'Sélection',img:'https://images.unsplash.com/photo-1584917865442-de89df76afd3?auto=format&fit=crop&w=800&q=80'},
+{id:4,cat:'Lifestyle',name:'Gourde isotherme',ar:'قارورة حرارية',price:99,old:129,badge:'Populaire',img:'https://images.unsplash.com/photo-1602143407151-7111542de6e8?auto=format&fit=crop&w=800&q=80'},
+{id:5,cat:'Tech',name:'Montre connectée',ar:'ساعة ذكية',price:249,old:329,badge:'Tendance',img:'https://images.unsplash.com/photo-1523275335684-37898b6baf30?auto=format&fit=crop&w=800&q=80'},
+{id:6,cat:'Maison',name:'Diffuseur d’ambiance',ar:'ناشر العطر',price:159,old:199,badge:'Nouveau',img:'https://images.unsplash.com/photo-1608571423902-eed4a5ad8108?auto=format&fit=crop&w=800&q=80'},
+{id:7,cat:'Style',name:'Lunettes de soleil',ar:'نظارات شمسية',price:119,old:159,badge:'Sélection',img:'https://images.unsplash.com/photo-1511499767150-a48a237f0083?auto=format&fit=crop&w=800&q=80'},
+{id:8,cat:'Lifestyle',name:'Accessoire de bureau',ar:'إكسسوار للمكتب',price:89,old:119,badge:'Bon choix',img:'https://images.unsplash.com/photo-1498050108023-c5249f4df085?auto=format&fit=crop&w=800&q=80'}];
+const T={fr:{announcement:'LIVRAISON PARTOUT AU MAROC · PAIEMENT À LA LIVRAISON',cart:'Panier',all:'Tous les produits',tech:'Électronique',home:'Maison',style:'Mode & accessoires',life:'Lifestyle',contact:'Contact',eyebrow:'LA SÉLECTION SOUKLY',heroTitle:'Le beau choix.<br>Le bon prix.',heroText:'Découvrez une sélection de produits tendance, choisis avec soin pour votre quotidien.',shop:'Découvrir la collection →',delivery:'Livraison au Maroc',deliverySub:'Partout au royaume',cash:'Paiement à la livraison',cashSub:'Simple et pratique',selection:'Sélection soignée',selectionSub:'Des choix utiles et tendance',support:'Service client',supportSub:'Commande via WhatsApp',featured:'Nos coups de cœur',featuredSub:'Une sélection pour trouver votre prochain favori.',promoTitle:'Le style, sans complication.',promoText:'Explorez nos nouveautés et trouvez votre prochain coup de cœur.',footText:'Votre boutique en ligne au Maroc. Une sélection simple, élégante et accessible.',quick:'Navigation',help:'Besoin d’aide ?',helpText:'Contactez-nous sur WhatsApp pour toute question.',rights:'Tous droits réservés.',yourCart:'Votre panier',subtotal:'Sous-total',order:'Commander sur WhatsApp',cartNote:'La livraison et le paiement seront confirmés avec notre équipe.',details:'Vos coordonnées',detailsSub:'Remplissez ces informations pour envoyer votre commande.',name:'Nom complet',phone:'Téléphone',address:'Ville et adresse de livraison',extra:'Note (facultatif)',send:'Envoyer la commande sur WhatsApp',add:'Ajouter au panier',empty:'Votre panier est vide.',remove:'Retirer',added:'Produit ajouté au panier',searchEmpty:'Aucun produit trouvé.',cats:['Tout','Électronique','Maison','Mode','Lifestyle']},ar:{announcement:'التوصيل لجميع أنحاء المغرب · الأداء عند الاستلام',cart:'السلة',all:'جميع المنتجات',tech:'إلكترونيات',home:'المنزل',style:'ملابس وإكسسوارات',life:'لايف ستايل',contact:'اتصل بنا',eyebrow:'اختيارات SOUKLY',heroTitle:'اختيار أنيق.<br>وثمن مناسب.',heroText:'اكتشف مجموعة من المنتجات العصرية المختارة بعناية لتناسب يومك.',shop:'اكتشف المنتجات ←',delivery:'التوصيل داخل المغرب',deliverySub:'لجميع المدن',cash:'الأداء عند الاستلام',cashSub:'سهل ومريح',selection:'منتجات مختارة',selectionSub:'اختيارات مفيدة وعصرية',support:'خدمة الزبناء',supportSub:'الطلب عبر واتساب',featured:'اختياراتنا المميزة',featuredSub:'اكتشف منتجاتك المفضلة.',promoTitle:'أناقة بلا تعقيد.',promoText:'اكتشف جديدنا واختر ما يناسبك.',footText:'متجرك الإلكتروني في المغرب. اختيارات أنيقة وبأثمنة مناسبة.',quick:'روابط',help:'هل تحتاج المساعدة؟',helpText:'تواصل معنا عبر واتساب بخصوص طلبك.',rights:'جميع الحقوق محفوظة.',yourCart:'سلة المشتريات',subtotal:'المجموع',order:'اطلب عبر واتساب',cartNote:'سيتم تأكيد التوصيل والأداء مع فريقنا.',details:'معلوماتك',detailsSub:'عمر المعلومات التالية لإرسال طلبك.',name:'الاسم الكامل',phone:'رقم الهاتف',address:'المدينة وعنوان التوصيل',extra:'ملاحظة (اختياري)',send:'إرسال الطلب عبر واتساب',add:'أضف إلى السلة',empty:'السلة فارغة حالياً.',remove:'حذف',added:'تمت إضافة المنتج إلى السلة',searchEmpty:'لم يتم العثور على منتجات.',cats:['الكل','إلكترونيات','المنزل','الأزياء','لايف ستايل']}};
+let lang='fr',cat='All',cart=[];const $=s=>document.querySelector(s),tr=k=>T[lang][k]||k,dh=n=>n.toLocaleString('fr-MA')+' DH';function notify(s){$('#toast').textContent=s;$('#toast').classList.add('show');setTimeout(()=>$('#toast').classList.remove('show'),2000)}
+function filters(){let cs=['All','Tech','Maison','Style','Lifestyle'];$('#filters').innerHTML=cs.map(c=>`<button class="filter ${cat===c?'active':''}" data-filter="${c}">${({All:lang==='ar'?'الكل':'Tout',Tech:tr('tech'),Maison:tr('home'),Style:lang==='ar'?'الأزياء':'Mode',Lifestyle:'Lifestyle'})[c]}</button>`).join('');document.querySelectorAll('[data-filter]').forEach(b=>b.onclick=()=>{cat=b.dataset.filter;filters();products()})}
+function products(){let q=$('#search').value.toLowerCase().trim(),arr=PRODUCTS.filter(p=>(cat==='All'||p.cat===cat)&&(!q||p.name.toLowerCase().includes(q)||p.ar.includes(q)||p.cat.toLowerCase().includes(q)));$('#grid').innerHTML=arr.length?arr.map(p=>`<article class="product"><div class="photo"><img loading="lazy" src="${p.img}" alt="${p.name}"><span class="tag">${p.badge}</span></div><div class="info"><div class="cat">${p.cat}</div><h3>${lang==='ar'?p.ar:p.name}</h3><span class="price">${dh(p.price)}</span><span class="old">${dh(p.old)}</span><small>${lang==='ar'?p.name:p.badge}</small><button class="add" data-add="${p.id}">＋ ${tr('add')}</button></div></article>`).join(''):`<p>${tr('searchEmpty')}</p>`;document.querySelectorAll('[data-add]').forEach(b=>b.onclick=()=>{let x=cart.find(x=>x.id==b.dataset.add);x?x.qty++:cart.push({id:+b.dataset.add,qty:1});renderCart();notify(tr('added'))})}
+function renderCart(){let n=cart.reduce((s,x)=>s+x.qty,0),sum=cart.reduce((s,x)=>s+PRODUCTS.find(p=>p.id===x.id).price*x.qty,0);$('#count').textContent=n;$('#total').textContent=dh(sum);$('#items').innerHTML=cart.length?cart.map(x=>{let p=PRODUCTS.find(p=>p.id===x.id);return `<div class="item"><img src="${p.img}" alt=""><div><b>${lang==='ar'?p.ar:p.name}</b><small>${dh(p.price)}</small><div class="qty"><button data-minus="${p.id}">−</button>${x.qty}<button data-plus="${p.id}">＋</button></div></div><button class="remove" data-remove="${p.id}">${tr('remove')}</button></div>`}).join(''):`<div class="empty">${tr('empty')}</div>`;document.querySelectorAll('[data-minus]').forEach(b=>b.onclick=()=>qty(+b.dataset.minus,-1));document.querySelectorAll('[data-plus]').forEach(b=>b.onclick=()=>qty(+b.dataset.plus,1));document.querySelectorAll('[data-remove]').forEach(b=>b.onclick=()=>{cart=cart.filter(x=>x.id!==+b.dataset.remove);renderCart()})}
+function qty(id,d){let x=cart.find(x=>x.id===id);x.qty+=d;cart=cart.filter(x=>x.qty>0);renderCart()}function showCart(){closeModal();$('#cart').classList.add('open');$('#overlay').classList.add('show')}function hideCart(){$('#cart').classList.remove('open');$('#overlay').classList.remove('show')}function closeModal(){$('#modal').classList.remove('show')}
+function setLang(){document.documentElement.lang=lang;document.documentElement.dir=lang==='ar'?'rtl':'ltr';document.querySelectorAll('[data-t]').forEach(e=>{let k=e.dataset.t;if(T[lang][k])e.innerHTML=tr(k)});$('#search').placeholder=lang==='ar'?'ابحث عن منتج...':'Rechercher un produit...';filters();products();renderCart()}
+$('#lang').onclick=()=>{lang=lang==='fr'?'ar':'fr';setLang()};$('#openCart').onclick=showCart;$('#closeCart').onclick=hideCart;$('#overlay').onclick=hideCart;$('#closeModal').onclick=closeModal;$('#searchForm').onsubmit=e=>{e.preventDefault();cat='All';filters();products();$('#products').scrollIntoView({behavior:'smooth'})};document.querySelectorAll('[data-category]').forEach(a=>a.onclick=()=>{cat=a.dataset.category;filters();products()});$('#checkout').onclick=()=>{if(!cart.length)return notify(tr('empty'));hideCart();$('#modal').classList.add('show')};$('#orderForm').onsubmit=e=>{e.preventDefault();let total=cart.reduce((s,x)=>s+PRODUCTS.find(p=>p.id===x.id).price*x.qty,0),list=cart.map(x=>{let p=PRODUCTS.find(p=>p.id===x.id);return `- ${p.name} x${x.qty} = ${dh(p.price*x.qty)}`}).join('\n'),msg=`Bonjour SOUKLY !\nCommande :\n${list}\nTotal produits : ${dh(total)}\nNom : ${$('#customerName').value}\nTéléphone : ${$('#customerPhone').value}\nAdresse : ${$('#customerAddress').value}\nNote : ${$('#customerNote').value||'Aucune'}\nMerci de confirmer la disponibilité et les frais de livraison.`;window.open('https://wa.me/'+WHATSAPP_NUMBER+'?text='+encodeURIComponent(msg),'_blank','noopener');closeModal()};$('#year').textContent=new Date().getFullYear();setLang();
+</script></body></html>
