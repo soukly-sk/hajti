@@ -7,7 +7,7 @@
   "scripts": {
     "build:web": "node scripts/copy-web.mjs",
     "build:android": "npm run build:web && cap sync android",
-    "build:windows": "npm run build:web && electron-builder --win nsis"
+    "build:windows": "npm run build:web && electron-builder --win nsis --publish never"
   },
   "dependencies": {
     "@capacitor/core": "^7.4.3"
