@@ -69,3 +69,29 @@ jobs:
           path: dist/*.exe
           if-no-files-found: error
           retention-days: 30
+
+  macos-dmg:
+    name: Build macOS DMG (High Sierra compatible)
+    runs-on: macos-15-intel
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+      - name: Install dependencies
+        run: npm install
+      - name: Install legacy Electron for macOS 10.13+
+        run: npm install --no-save electron@26.6.10
+      - name: Build macOS app
+        run: npm run build:mac:legacy
+      - name: Upload macOS builds
+        uses: actions/upload-artifact@v4
+        with:
+          name: SOUKLY-macOS-High-Sierra
+          path: |
+            dist/*.dmg
+            dist/*.zip
+          if-no-files-found: error
+          retention-days: 30
