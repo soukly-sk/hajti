@@ -1,6 +1,6 @@
 {
-  "appId": "ma.soukly.store",
-  "appName": "SOUKLY",
+  "appId": "ma.hajti.store",
+  "appName": "HAJTI",
   "webDir": "www",
   "server": {
     "androidScheme": "https"
