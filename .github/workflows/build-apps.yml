@@ -1,4 +1,4 @@
-name: Build SOUKLY apps
+name: Build HAJTI apps
 
 on:
   workflow_dispatch:
@@ -6,6 +6,8 @@ on:
     branches: [main]
     paths:
       - 'index.html'
+      - 'finder.html'
+      - 'hajti-logo.svg'
       - 'package.json'
       - 'capacitor.config.json'
       - 'electron/**'
@@ -43,7 +45,7 @@ jobs:
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
-          name: SOUKLY-Android-APK
+          name: HAJTI-Android-APK
           path: android/app/build/outputs/apk/debug/app-debug.apk
           if-no-files-found: error
           retention-days: 30
@@ -65,7 +67,7 @@ jobs:
       - name: Upload EXE
         uses: actions/upload-artifact@v4
         with:
-          name: SOUKLY-Windows-EXE
+          name: HAJTI-Windows-EXE
           path: dist/*.exe
           if-no-files-found: error
           retention-days: 30
@@ -89,7 +91,7 @@ jobs:
       - name: Upload macOS builds
         uses: actions/upload-artifact@v4
         with:
-          name: SOUKLY-macOS-High-Sierra
+          name: HAJTI-macOS-High-Sierra
           path: |
             dist/*.dmg
             dist/*.zip
