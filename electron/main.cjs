@@ -9,7 +9,7 @@ function createWindow() {
     minHeight: 600,
     backgroundColor: '#11100e',
     autoHideMenuBar: true,
-    title: 'SOUKLY',
+    title: 'HAJTI',
     webPreferences: {
       nodeIntegration: false,
       contextIsolation: true,
