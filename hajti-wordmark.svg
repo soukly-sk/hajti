@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 620 180" role="img" aria-labelledby="title desc">
+<title id="title">HAJTI</title><desc id="desc">HAJTI shopping brand logo in warm gold and ivory</desc>
+<defs><linearGradient id="gold" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#f4dfad"/><stop offset=".52" stop-color="#c6a15b"/><stop offset="1" stop-color="#9b7137"/></linearGradient></defs>
+<g transform="translate(8 7)" fill="none" stroke="url(#gold)" stroke-width="6" stroke-linecap="round" stroke-linejoin="round">
+<path d="M28 60 17 23l39 20L82 8l26 35 39-20-11 37"/>
+<path d="M29 69h107l-9 94H38z"/><path d="M58 69V56a25 25 0 0 1 50 0v13"/>
+</g>
+<text x="185" y="119" fill="#f4ead3" font-family="Georgia, 'Times New Roman', serif" font-size="91" font-weight="bold" letter-spacing="3">HAJTI</text>
+<path d="M190 140h360" stroke="url(#gold)" stroke-width="2" opacity=".8"/>
+</svg>
