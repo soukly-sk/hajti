@@ -74,7 +74,44 @@ function minProductPrice(p){const prices=(p.variants||[]).filter(v=>v.is_active!
 function cartKey(p){return p.id+'::'+(p.variantId||'')}
 function addProductToCart(p,variant){const item={...p,variantId:variant?.id||null,variantLabel:variant?(lang==='ar'?(variant.label_ar||variant.label_fr):(variant.label_fr||variant.label_ar)):null,price:variant?Number(variant.price):Number(p.price),old_price:variant?.old_price??p.old_price,image_url:variant?.image_url||p.image_url,qty:1};const found=cart.find(x=>cartKey(x)===cartKey(item));if(found)found.qty++;else cart.push(item);renderCart();$('cartOverlay').classList.add('open');const row=$('cartItems').lastElementChild;if(row){row.classList.add('cart-line-added');row.scrollIntoView({behavior:'smooth',block:'nearest'})}}
 function makeCard(p){const card=el('article','card'),photo=el('div','photo');card.tabIndex=0;card.setAttribute('role','button');card.setAttribute('aria-label',lang==='ar'?p.name_ar:p.name_fr);card.onclick=e=>{if(e.target.closest('.add'))return;openProduct(p)};card.onkeydown=e=>{if((e.key==='Enter'||e.key===' ')&&!e.target.closest('.add')){e.preventDefault();openProduct(p)}};if(p.image_url||(p.variants||[]).some(v=>v.image_url)){const img=el('img');img.src=p.image_url||(p.variants||[]).find(v=>v.image_url).image_url;img.alt=lang==='ar'?p.name_ar:p.name_fr;img.loading='lazy';photo.append(img)}else photo.append(el('div','empty','HAJTI'));if(p.old_price&&Number(p.old_price)>Number(p.price))photo.append(el('span','tag','OFFRE'));const d=el('div','details');d.append(el('h3','',lang==='ar'?p.name_ar:p.name_fr));d.append(el('div','desc',''));d.lastChild.textContent=lang==='ar'?(p.description_ar||''): (p.description_fr||'');const price=el('div','price');const hasVariants=(p.variants||[]).some(v=>v.is_active!==false&&!v.gallery_only);price.append(el('strong','',money(minProductPrice(p))+(hasVariants?(lang==='ar'?' ابتداءً من':lang==='en'?' from':' à partir de'):'')));if(p.old_price&&!hasVariants)price.append(el('span','old',money(p.old_price)));d.append(price);const b=el('button','add',hasVariants?(lang==='ar'?'اختار النسخة':lang==='en'?'Choose option':'Choisir une option'):tr('add'));b.onclick=e=>{e.stopPropagation();if(hasVariants)openProduct(p);else addProductToCart(p,null)};d.append(b);card.append(photo,d);return card}
-function openProduct(p){let selectedVariant=(p.variants||[]).find(v=>v.is_active!==false&&!v.gallery_only)||null;$('detailImage').src=selectedVariant?.image_url||p.image_url||'';$('detailImage').alt=lang==='ar'?p.name_ar:p.name_fr;$('detailCategory').textContent=p.category||'HAJTI';$('detailName').textContent=lang==='ar'?p.name_ar:p.name_fr;$('detailDescription').textContent=lang==='ar'?(p.description_ar||'لا توجد تفاصيل إضافية حالياً.'):(p.description_fr||'Aucun détail supplémentaire pour le moment.');const price=$('detailPrice'),variantsBox=$('detailVariants');variantsBox.replaceChildren();const updatePrice=()=>{price.replaceChildren(el('strong','',money(selectedVariant?selectedVariant.price:p.price)));const old=selectedVariant?.old_price??p.old_price;if(old&&Number(old)>Number(selectedVariant?.price??p.price))price.append(el('span','old',money(old)));$('detailImage').src=selectedVariant?.image_url||p.image_url||''};const gallery=[p.image_url,...(p.variants||[]).filter(v=>v.gallery_only).map(v=>v.image_url),...(p.variants||[]).filter(v=>!v.gallery_only).map(v=>v.image_url)].filter(Boolean).filter((u,i,a)=>a.indexOf(u)===i);const galleryBox=$('detailGallery');galleryBox.replaceChildren();gallery.forEach(url=>{const b=el('button');b.type='button';const im=el('img');im.src=url;im.alt='Photo du produit';b.append(im);b.onclick=()=>{$('detailImage').src=url;galleryBox.querySelectorAll('button').forEach(x=>x.classList.remove('selected'));b.classList.add('selected')};galleryBox.append(b)});if(gallery.length>1)galleryBox.firstChild.classList.add('selected');const variants=(p.variants||[]).filter(v=>v.is_active!==false&&!v.gallery_only);if(variants.length){variants.forEach(v=>{const btn=el('button','variant-choice'+(v.id===selectedVariant?.id?' selected':''));btn.type='button';if(v.image_url||p.image_url){const img=el('img');img.src=v.image_url||p.image_url;img.alt=v.label_fr||v.label_ar||'';btn.append(img)}btn.append(el('b','',lang==='ar'?(v.label_ar||v.label_fr):(v.label_fr||v.label_ar)));btn.append(el('span','',money(v.price)));btn.onclick=()=>{selectedVariant=v;variantsBox.querySelectorAll('.variant-choice').forEach(x=>x.classList.remove('selected'));btn.classList.add('selected');updatePrice()};variantsBox.append(btn)})}updatePrice();$('detailAdd').textContent=tr('detailAdd');$('detailAdd').onclick=()=>{addProductToCart(p,selectedVariant);$('detailOverlay').classList.remove('open')};$('detailOverlay').classList.add('open')}
+function openProduct(p){
+ const variants=(p.variants||[]).filter(v=>v.is_active!==false&&!v.gallery_only);
+ let selectedVariant=variants[0]||null;
+ const image=$('detailImage'),price=$('detailPrice'),variantsBox=$('detailVariants'),galleryBox=$('detailGallery');
+ image.alt=lang==='ar'?p.name_ar:p.name_fr;
+ $('detailCategory').textContent=p.category||'HAJTI';
+ $('detailName').textContent=lang==='ar'?p.name_ar:p.name_fr;
+ $('detailDescription').textContent=lang==='ar'?(p.description_ar||'لا توجد تفاصيل إضافية حالياً.'):(p.description_fr||'Aucun détail supplémentaire pour le moment.');
+ variantsBox.replaceChildren();galleryBox.replaceChildren();
+ const gallery=[{url:p.image_url,variant:null},...(p.variants||[]).filter(v=>v.gallery_only).map(v=>({url:v.image_url,variant:null})),...variants.map(v=>({url:v.image_url,variant:v}))].filter(x=>x.url).filter((x,i,a)=>a.findIndex(y=>y.url===x.url)===i);
+ function selectPhoto(url){image.src=url||p.image_url||'';galleryBox.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b.dataset.url===image.src));}
+ function updateSelection(){
+  const amount=selectedVariant?Number(selectedVariant.price):Number(p.price);
+  price.replaceChildren(el('strong','',money(amount)));
+  const old=selectedVariant?.old_price??p.old_price;
+  if(old&&Number(old)>amount)price.append(el('span','old',money(old)));
+  variantsBox.querySelectorAll('.variant-choice').forEach(b=>b.classList.toggle('selected',b.dataset.variantId===String(selectedVariant?.id||'')));
+  selectPhoto(selectedVariant?.image_url||p.image_url||gallery[0]?.url||'');
+ }
+ gallery.forEach(item=>{
+  const b=el('button');b.type='button';b.dataset.url=item.url;b.setAttribute('aria-label',item.variant?(item.variant.label_fr||item.variant.label_ar||'Option'):'Photo du produit');
+  const im=el('img');im.src=item.url;im.alt=b.getAttribute('aria-label');im.loading='lazy';b.append(im);
+  b.onclick=()=>{if(item.variant){selectedVariant=item.variant;updateSelection()}else selectPhoto(item.url)};
+  galleryBox.append(b);
+ });
+ variants.forEach(v=>{
+  const btn=el('button','variant-choice');btn.type='button';btn.dataset.variantId=String(v.id);
+  if(v.image_url||p.image_url){const img=el('img');img.src=v.image_url||p.image_url;img.alt=v.label_fr||v.label_ar||'';btn.append(img)}
+  btn.append(el('b','',lang==='ar'?(v.label_ar||v.label_fr):(v.label_fr||v.label_ar)));
+  btn.append(el('span','',money(v.price)));
+  btn.onclick=()=>{selectedVariant=v;updateSelection()};
+  variantsBox.append(btn);
+ });
+ updateSelection();
+ $('detailAdd').textContent=tr('detailAdd');
+ $('detailAdd').onclick=()=>{addProductToCart(p,selectedVariant);$('detailOverlay').classList.remove('open')};
+ $('detailOverlay').classList.add('open');
+}
 $('detailClose').onclick=()=>$('detailOverlay').classList.remove('open');$('detailOverlay').onclick=e=>{if(e.target===$('detailOverlay'))$('detailOverlay').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('detailOverlay').classList.remove('open');$('cartOverlay').classList.remove('open');$('checkoutOverlay').classList.remove('open')}});
 function renderProducts(){const grid=$('productGrid');grid.replaceChildren();const q=$('searchInput').value.trim().toLocaleLowerCase();const list=products.filter(p=>p.is_active!==false&&(categoryFilter==='all'||p.category===categoryFilter)&&(!q||[p.name_fr,p.name_ar,p.description_fr,p.description_ar,p.category].some(v=>(v||'').toLocaleLowerCase().includes(q))));if(!list.length){grid.append(el('div','empty',tr('none')));return}list.forEach(p=>grid.append(makeCard(p)))}
 function renderFilters(){const box=$('filters');box.replaceChildren();const cats=[...new Set(products.filter(p=>p.is_active!==false).map(p=>p.category).filter(Boolean))];const all=el('button',categoryFilter==='all'?'active':'',tr('all'));all.onclick=()=>{categoryFilter='all';renderFilters();renderProducts()};box.append(all);cats.forEach(c=>{const b=el('button',categoryFilter===c?'active':'',c);b.onclick=()=>{categoryFilter=c;renderFilters();renderProducts()};box.append(b)})}
