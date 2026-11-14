@@ -52,6 +52,49 @@ html{scroll-behavior:smooth}body{animation:pageIn .35s ease both}.card{cursor:po
 .detail-box .variant-choice b{font-size:13px;line-height:1.35;overflow-wrap:anywhere}
 .detail-box .variant-choice span{display:block;font-size:14px;font-weight:700;color:#171512;margin-top:5px}
 @media(max-width:700px){.detail-box .detail-variants{grid-template-columns:repeat(2,minmax(0,1fr))}}
+
+/* HAJTI premium product experience — visual-only, no data migrations */
+.detail-overlay{background:rgba(13,11,9,.78);backdrop-filter:blur(9px)}
+.detail-box{width:min(1120px,calc(100% - 32px));max-height:min(92dvh,900px);border-radius:18px;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);box-shadow:0 28px 95px rgba(0,0,0,.42);border:1px solid #eae3d7}
+.detail-photo-wrap{background:linear-gradient(145deg,#f8f5ee,#efebe2);padding:24px;position:sticky;top:0}
+.detail-box .detail-photo-wrap #detailImage{aspect-ratio:1/1;object-fit:contain;max-height:530px;background:#fff;border:1px solid #eee8df;border-radius:13px;transition:opacity .16s ease}
+.detail-box .detail-gallery{gap:10px;padding:16px 1px 6px;scroll-padding:4px}
+.detail-box .detail-gallery button{flex:0 0 68px;width:68px;height:68px;border:1.5px solid #ded7cc;border-radius:10px;padding:4px;box-shadow:0 2px 5px #00000009}
+.detail-box .detail-gallery button.selected{border:2px solid #b58b3c;box-shadow:0 0 0 2px #b58b3c22}
+.detail-box .detail-gallery button img{width:100%;height:100%;min-height:0;max-height:none;object-fit:contain}
+.detail-box .detail-copy{padding:42px 36px 34px}
+.detail-box .detail-copy h2{font-size:clamp(26px,2.8vw,38px);line-height:1.18;letter-spacing:-.025em;color:#201c16;margin:10px 0 17px}
+.detail-box .detail-copy .eyebrow{color:#a27c38;letter-spacing:.17em;font-size:11px;font-weight:700;text-transform:uppercase}
+.detail-box .detail-copy .price{display:flex;align-items:baseline;gap:12px;margin:14px 0 19px}
+.detail-box .detail-copy .price strong{font-size:clamp(24px,3vw,34px);font-weight:750;color:#171512}
+.detail-box .detail-copy .price .old{font-size:15px;color:#a7a097}
+.detail-box .variant-heading{font-size:14px;margin:18px 0 11px;color:#2d271e}
+.detail-box .detail-variants{display:grid;grid-template-columns:repeat(auto-fit,minmax(115px,1fr));gap:10px;margin:0 0 23px}
+.detail-box .variant-choice{border:1.5px solid #e1dcd3;border-radius:11px;padding:10px;background:#fff;transition:border-color .2s,box-shadow .2s,transform .2s}
+.detail-box .variant-choice:hover{border-color:#b58b3c;transform:translateY(-2px)}
+.detail-box .variant-choice.selected{border:2px solid #b58b3c;background:#fffcf5;box-shadow:0 0 0 3px #b58b3c18}
+.detail-box .variant-choice img{height:85px;min-height:0;max-height:none;object-fit:contain;border-radius:7px;background:#f9f7f2}
+.detail-box .variant-choice b{font-size:12px;line-height:1.35}
+.detail-box .variant-choice span{font-size:14px;font-weight:750;color:#1c1914}
+.detail-box .detail-copy p{line-height:1.85;font-size:14px;color:#6b645b;margin:20px 0}
+.detail-box #detailAdd{display:block;width:100%;min-height:52px;border-radius:9px;font-size:15px;font-weight:700;cursor:pointer;transition:filter .2s,transform .2s}
+.detail-box #detailAdd:hover{filter:brightness(.94);transform:translateY(-1px)}
+.detail-box .detail-close{right:16px;top:16px;width:40px;height:40px;display:grid;place-items:center;border:1px solid #e6dfd5;box-shadow:0 3px 12px #0002}
+.detail-box button:focus-visible{outline:3px solid #c6a15b;outline-offset:2px}
+@media(max-width:700px){
+ .detail-overlay{padding:0;align-items:flex-end}
+ .detail-box{display:block;width:100%;max-height:94dvh;border-radius:18px 18px 0 0}
+ .detail-photo-wrap{position:static;padding:13px 13px 6px}
+ .detail-box .detail-photo-wrap #detailImage{aspect-ratio:4/3;max-height:43dvh}
+ .detail-box .detail-gallery{gap:8px;padding:11px 1px 5px}
+ .detail-box .detail-gallery button{flex-basis:60px;width:60px;height:60px}
+ .detail-box .detail-copy{padding:19px 20px 30px}
+ .detail-box .detail-copy h2{font-size:27px}
+ .detail-box .detail-variants{grid-template-columns:repeat(2,minmax(0,1fr));gap:9px}
+ .detail-box .variant-choice img{height:76px}
+ .detail-box .detail-close{right:12px;top:12px}
+}
+@media(prefers-reduced-motion:reduce){.detail-box .variant-choice,.detail-box #detailAdd,.detail-box .detail-gallery button{transition:none!important;transform:none!important}}
 </style>
 </head>
 <body>
@@ -94,13 +137,13 @@ function openProduct(p){
  $('detailDescription').textContent=lang==='ar'?(p.description_ar||'لا توجد تفاصيل إضافية حالياً.'):(p.description_fr||'Aucun détail supplémentaire pour le moment.');
  variantsBox.replaceChildren();galleryBox.replaceChildren();const oldHeading=variantsBox.previousElementSibling;if(oldHeading?.classList.contains('variant-heading'))oldHeading.remove();if(variants.length){const heading=el('div','variant-heading',lang==='ar'?'اختار الموديل أو السعة':lang==='en'?'Choose model or capacity':'Choisissez votre modèle ou capacité');variantsBox.before(heading);}else{const previous=variantsBox.previousElementSibling;if(previous?.classList.contains('variant-heading'))previous.remove();}
  const gallery=[{url:p.image_url,variant:null},...(p.variants||[]).filter(v=>v.gallery_only).map(v=>({url:v.image_url,variant:null})),...variants.map(v=>({url:v.image_url,variant:v}))].filter(x=>x.url).filter((x,i,a)=>a.findIndex(y=>y.url===x.url)===i);
- function selectPhoto(url){image.src=url||p.image_url||'';galleryBox.querySelectorAll('button').forEach(b=>b.classList.toggle('selected',b.dataset.url===image.src));}
+ function selectPhoto(url){image.src=url||p.image_url||'';galleryBox.querySelectorAll('button').forEach(b=>{const active=b.dataset.url===image.src;b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active));});}
  function updateSelection(){
   const amount=selectedVariant?Number(selectedVariant.price):Number(p.price);
   price.replaceChildren(el('strong','',money(amount)));
   const old=selectedVariant?.old_price??p.old_price;
   if(old&&Number(old)>amount)price.append(el('span','old',money(old)));
-  variantsBox.querySelectorAll('.variant-choice').forEach(b=>b.classList.toggle('selected',b.dataset.variantId===String(selectedVariant?.id||'')));
+  variantsBox.querySelectorAll('.variant-choice').forEach(b=>{const active=b.dataset.variantId===String(selectedVariant?.id||'');b.classList.toggle('selected',active);b.setAttribute('aria-pressed',String(active));});
   selectPhoto(selectedVariant?.image_url||p.image_url||gallery[0]?.url||'');
  }
  gallery.forEach(item=>{
@@ -121,6 +164,7 @@ function openProduct(p){
  $('detailAdd').textContent=tr('detailAdd');
  $('detailAdd').onclick=()=>{addProductToCart(p,selectedVariant);$('detailOverlay').classList.remove('open')};
  $('detailOverlay').classList.add('open');
+ $('detailClose').focus({preventScroll:true});
 }
 $('detailClose').onclick=()=>$('detailOverlay').classList.remove('open');$('detailOverlay').onclick=e=>{if(e.target===$('detailOverlay'))$('detailOverlay').classList.remove('open')};document.addEventListener('keydown',e=>{if(e.key==='Escape'){$('detailOverlay').classList.remove('open');$('cartOverlay').classList.remove('open');$('checkoutOverlay').classList.remove('open')}});
 function renderProducts(){const grid=$('productGrid');grid.replaceChildren();const q=$('searchInput').value.trim().toLocaleLowerCase();const list=products.filter(p=>p.is_active!==false&&(categoryFilter==='all'||p.category===categoryFilter)&&(!q||[p.name_fr,p.name_ar,p.description_fr,p.description_ar,p.category].some(v=>(v||'').toLocaleLowerCase().includes(q))));if(!list.length){grid.append(el('div','empty',tr('none')));return}list.forEach(p=>grid.append(makeCard(p)))}
